@@ -1,46 +1,22 @@
 #include "math_lib.h"
-#include <cmath>
-#include <algorithm>
+#include <algorithm> 
+#include <vector>
 
-namespace MathLib
-{
-    bool isEqual(double a, double b, double tolerance)
-    {
-        return abs(a - b) <= tolerance;
+double calculate_median(const std::vector<double>& data) {
+    if (data.empty()) {
+        return 0.0; 
     }
 
-    bool isPrime(int n)
-    {
-        if (n <= 1)
-            return false;
+    std::vector<double> sorted_data = data;
+    std::sort(sorted_data.begin(), sorted_data.end());
+
+    size_t size = sorted_data.size();
+
+    if (size % 2 == 0) {
         
-        for (int i = 2; i * i <= n; i++)
-        {
-            if (n % i == 0)
-                return false;        
-        }
-        return true;
+        return (sorted_data[size / 2 - 1] + sorted_data[size / 2]) / 2.0;
+    } else {
+      
+        return sorted_data[size / 2];
     }
-
-    int leastCommonMultiple(int a, int b)
-    {
-        int lcm = 1;
-        int maxNum = std::max(a, b);
-        for (int i = maxNum; i <= a * b; i += maxNum)
-        {
-            if (i % a == 0 && i % b == 0)
-            {
-                lcm = i;
-                break;
-            }
-        }
-        return lcm;
-    }
-
-    int GCD(int a, int b)
-    {
-		if (b == 0) return a;
-		return GCD(b, a % b);
-	}
 }
-
